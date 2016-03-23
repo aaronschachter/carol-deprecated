@@ -1,7 +1,71 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+
+var CampaignView = React.createClass({
+  render: function() {
+    return (
+      <div className="campaignView">
+        <h2 className="campaignTitle">
+          {this.props.title}
+        </h2>
+        <p>
+          <a href={this.props.url}>{this.props.tagline}</a>
+        </p>
+      </div>
+    );
+  }
+});
+
+var CampaignListView = React.createClass({
+  fetchData: function() {
+    fetch('https://www.dosomething.org/api/v1/campaigns')
+      .then((res) => {
+          return res.json();
+      }).then((json) => {
+        this.setState({
+          data: json.data,
+        });
+      })
+  },
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    this.fetchData();
+  },
+  render: function() {
+    return (
+      <div>
+        <h1>Campaigns</h1>
+        <CampaignList data={this.state.data} />
+      </div>
+    );
+  }
+});
+
+var CampaignList = React.createClass({
+  render: function() {
+    var campaigns = this.props.data.map(function(campaign) {
+      var campaign_url = 'https://www.dosomething.org/node/' + campaign.id;
+      return (
+        <CampaignView 
+          title={campaign.title}
+          tagline={campaign.tagline}
+          url = {campaign_url}
+          key={campaign.id}
+        />
+      );
+    });
+    return (
+      <div>
+        {campaigns}
+      </div>
+    );
+  }
+});
+
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
-  document.getElementById('campaign-list')
+  <CampaignListView />,
+  document.getElementById('content')
 );

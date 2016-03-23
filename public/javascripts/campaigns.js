@@ -95,11 +95,85 @@ process.umask = function() { return 0; };
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-ReactDOM.render(React.createElement(
-  'h1',
-  null,
-  'Hello, world!'
-), document.getElementById('campaign-list'));
+var CampaignView = React.createClass({
+  displayName: 'CampaignView',
+
+  render: function () {
+    return React.createElement(
+      'div',
+      { className: 'campaignView' },
+      React.createElement(
+        'h2',
+        { className: 'campaignTitle' },
+        this.props.title
+      ),
+      React.createElement(
+        'p',
+        null,
+        React.createElement(
+          'a',
+          { href: this.props.url },
+          this.props.tagline
+        )
+      )
+    );
+  }
+});
+
+var CampaignListView = React.createClass({
+  displayName: 'CampaignListView',
+
+  fetchData: function () {
+    fetch('https://www.dosomething.org/api/v1/campaigns').then(res => {
+      return res.json();
+    }).then(json => {
+      this.setState({
+        data: json.data
+      });
+    });
+  },
+  getInitialState: function () {
+    return { data: [] };
+  },
+  componentDidMount: function () {
+    this.fetchData();
+  },
+  render: function () {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'h1',
+        null,
+        'Campaigns'
+      ),
+      React.createElement(CampaignList, { data: this.state.data })
+    );
+  }
+});
+
+var CampaignList = React.createClass({
+  displayName: 'CampaignList',
+
+  render: function () {
+    var campaigns = this.props.data.map(function (campaign) {
+      var campaign_url = 'https://www.dosomething.org/node/' + campaign.id;
+      return React.createElement(CampaignView, {
+        title: campaign.title,
+        tagline: campaign.tagline,
+        url: campaign_url,
+        key: campaign.id
+      });
+    });
+    return React.createElement(
+      'div',
+      null,
+      campaigns
+    );
+  }
+});
+
+ReactDOM.render(React.createElement(CampaignListView, null), document.getElementById('content'));
 
 },{"react":159,"react-dom":30}],3:[function(require,module,exports){
 (function (process){
