@@ -19,7 +19,7 @@ var CampaignView = React.createClass({
 
 var CampaignListView = React.createClass({
   fetchData: function() {
-    fetch('https://www.dosomething.org/api/v1/campaigns')
+    fetch('https://www.dosomething.org/api/v1/campaigns?count=50')
       .then((res) => {
           return res.json();
       }).then((json) => {
