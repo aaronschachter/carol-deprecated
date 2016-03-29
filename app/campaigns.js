@@ -7,11 +7,11 @@ var CampaignView = React.createClass({
     return (
       <div className="campaignView">
         <h2 className="campaignTitle">
-          {this.props.title}
+          <a href={this.props.url}>{this.props.title}</a>
         </h2>
-        <p>
-          <a href={this.props.url}>{this.props.tagline}</a>
-        </p>
+        <ul>
+          <li>{this.props.tagline}</li>
+        </ul>
       </div>
     );
   }
@@ -37,7 +37,6 @@ var CampaignListView = React.createClass({
   render: function() {
     return (
       <div>
-        <h1>Campaigns</h1>
         <CampaignList data={this.state.data} />
       </div>
     );
