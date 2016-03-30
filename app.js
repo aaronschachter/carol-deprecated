@@ -28,7 +28,7 @@ app.get('/campaigns', function(req, res, next) {
 });
 
 app.get('/campaign/:id', function(req, res, next) {
-  res.render('campaign', { title: 'Campaign' });
+  res.render('inbox', { title: 'Inbox' });
 });
 
 // catch 404 and forward to error handler
@@ -42,8 +42,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-//if (app.get('env') === 'development') {
-if (true) {
+if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -62,10 +61,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-
-// app.get('/campaigns', function(req, res, next) {
-//   res.render('campaigns', { title: 'Campaigns' });
-// });
 
 module.exports = app;

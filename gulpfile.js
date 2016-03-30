@@ -21,7 +21,7 @@ function handleErrors() {
 
 function buildScript(file, watch) {
   var props = {
-    entries: ['./src/' + file],
+    entries: ['./src/components/' + file],
     debug : true,
     cache: {},
     packageCache: {},
@@ -36,7 +36,6 @@ function buildScript(file, watch) {
     return stream
       .on('error', handleErrors)
       .pipe(source(file))
-      .pipe(rename('app.min.js'))
       .pipe(gulp.dest('./public/dist/'))
       .pipe(reload({stream:true}))
   }
@@ -49,6 +48,8 @@ function buildScript(file, watch) {
 }
 
 gulp.task('default', function() {
-  return buildScript('main.js', true); 
+  buildScript('CampaignList.js', true); 
+  buildScript('Inbox.js', true);
+  return;
 });
 
