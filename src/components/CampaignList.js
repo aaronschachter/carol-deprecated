@@ -46,7 +46,7 @@ var CampaignListView = React.createClass({
 var CampaignList = React.createClass({
   render: function() {
     var campaigns = this.props.data.map(function(campaign) {
-      var campaign_url = 'https://www.dosomething.org/node/' + campaign.id;
+      var campaign_url = '/campaign/' + campaign.id;
       return (
         <CampaignView 
           title={campaign.title}

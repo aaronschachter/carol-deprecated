@@ -25,7 +25,7 @@ function buildScript(file, watch) {
     debug : true,
     cache: {},
     packageCache: {},
-    transform: [babelify.configure({ presets: ["react"] })]
+    transform: [babelify.configure({ presets: ["es2015", "react"]})]
   };
 
   // watchify() if watch requested, otherwise run browserify() once 
@@ -49,6 +49,6 @@ function buildScript(file, watch) {
 }
 
 gulp.task('default', function() {
-  return buildScript('campaigns.js', true); 
+  return buildScript('main.js', true); 
 });
 
