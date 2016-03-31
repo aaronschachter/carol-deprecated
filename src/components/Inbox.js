@@ -16,7 +16,7 @@ var InboxListItem = React.createClass({
     var url = 'https://www.dosomething.org/reportback/' + this.props.reportbackItem.reportback.id + '?fid=' + this.props.reportbackItem.id;
     return (
       <div className="row">
-        <div className="col-md-1 center-block">
+        <div className="col-md-1">
           <figure>
             <a href={url}><img className="img-responsive img-circle" src={user.photo}/></a>
             <figcaption>
@@ -24,7 +24,7 @@ var InboxListItem = React.createClass({
             </figcaption>
           </figure>
         </div>
-        <div className="col-md-5 center-block">
+        <div className="col-md-5">
           <figure>
             <a href={url}><img className="img-responsive" src={this.props.reportbackItem.media.uri}/></a>
             <figcaption>
@@ -32,16 +32,19 @@ var InboxListItem = React.createClass({
             </figcaption>
           </figure>
         </div>
-        <div className="col-md-3 center-block">
-          <p className="quantity">
+        <div className="col-md-3">
+          <div className="quantity text-center">
             <h3>
             {this.props.reportbackItem.reportback.quantity}
             </h3>
             {quantityLabel}
-          </p>
+          </div>
         </div>
-        <div className="col-md-3 center-block">
-          Form
+        <div className="col-md-3">
+          <button className="btn btn-primary btn-lg btn-block" type="submit">Approve</button>
+          <button className="btn btn-default btn-lg btn-block" type="submit">Promote</button>
+          <button className="btn btn-default btn-lg btn-block" type="submit">Exclude</button>
+          <button className="btn btn-default btn-lg btn-block" type="submit">Flag</button>
         </div>
       </div>
     );
