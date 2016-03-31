@@ -6,7 +6,8 @@ var InboxListItem = React.createClass({
   render: function() {
     var user = this.props.reportbackItem.user;
     if (!user.photo) {
-      user.photo = 'http://placecorgi.com/200/200';
+//      user.photo = 'http://placecorgi.com/200/200';
+      user.photo = 'https://raw.githubusercontent.com/DoSomething/LetsDoThis-iOS/develop/Lets%20Do%20This/Images.xcassets/Avatar.imageset/Avatar.png';
     }
     if (!user.first_name) {
       user.first_name = 'Doer';
@@ -16,28 +17,32 @@ var InboxListItem = React.createClass({
     var url = 'https://www.dosomething.org/reportback/' + this.props.reportbackItem.reportback.id + '?fid=' + this.props.reportbackItem.id;
     return (
       <div className="row">
-        <div className="col-md-1">
+        <div className="col-md-1 text-center">
           <figure>
             <a href={url}><img className="img-responsive img-circle" src={user.photo}/></a>
             <figcaption>
-              {user.first_name}
+              <small>{user.first_name.toUpperCase()}</small>
             </figcaption>
           </figure>
         </div>
         <div className="col-md-5">
-          <figure>
-            <a href={url}><img className="img-responsive" src={this.props.reportbackItem.media.uri}/></a>
-            <figcaption>
+          <div className="panel panel-default">
+            <div className="panel-body">
+              <a href={url}>
+                <img className="img-responsive" src={this.props.reportbackItem.media.uri} />
+              </a>
+            </div>
+            <div className="panel-footer">
               {this.props.reportbackItem.caption}
-            </figcaption>
-          </figure>
+            </div>
+          </div>
         </div>
         <div className="col-md-3">
           <div className="quantity text-center">
             <h3>
             {this.props.reportbackItem.reportback.quantity}
             </h3>
-            {quantityLabel}
+            <small>{quantityLabel}</small>
           </div>
         </div>
         <div className="col-md-3">
