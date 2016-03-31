@@ -19,7 +19,7 @@ var InboxListItem = React.createClass({
       <div className="row">
         <div className="col-md-1 text-center">
           <figure>
-            <a href={url}><img className="img-responsive img-circle" src={user.photo}/></a>
+            <a href={url}><img className="avatar img-circle" src={user.photo}/></a>
             <figcaption>
               <small>{user.first_name.toUpperCase()}</small>
             </figcaption>
