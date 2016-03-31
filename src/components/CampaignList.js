@@ -6,12 +6,12 @@ var CampaignView = React.createClass({
   render: function() {
     return (
       <div className="campaignView">
-        <h2 className="campaignTitle">
+        <h3 className="campaignTitle">
           <a href={this.props.url}>{this.props.title}</a>
-        </h2>
-        <ul>
-          <li>{this.props.tagline}</li>
-        </ul>
+        </h3>
+        <p>
+          {this.props.tagline}
+        </p>
       </div>
     );
   }
