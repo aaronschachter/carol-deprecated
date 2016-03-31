@@ -64,11 +64,18 @@ var InboxListView = React.createClass({
       }).then((json) => {
         this.setState({
           data: json.data,
+          campaign: json.data[0].campaign,
         });
       })
   },
   getInitialState: function() {
-    return {data: []};
+    return {
+      data: [],
+      campaign: {
+        title: null,
+        tagline: null,
+      }
+    };
   },
   componentDidMount: function() {
     // Hack for now. pathArray[2] is our campaign ID.
@@ -79,6 +86,10 @@ var InboxListView = React.createClass({
   render: function() {
     return (
       <div>
+        <div className="page-header">
+          <h1>{this.state.campaign.title}</h1>
+          <p>{this.state.campaign.tagline}</p>
+        </div>
         <InboxList data={this.state.data} />
       </div>
     );
@@ -97,7 +108,7 @@ var InboxList = React.createClass({
     });
     return (
       <div>
-        {reportbackItems}
+        {reportbackItems[0]}
       </div>
     );
   }

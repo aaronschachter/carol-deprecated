@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding-top: 70px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -12,4 +12,11 @@ figcaption {
 img.avatar {
   width: 75px;
   height: 75px;
+}
+image.navbar-brand {
+  width: 60px;
+  height: 50px;
+}
+.table-hover td {
+  cursor: pointer;
 }
