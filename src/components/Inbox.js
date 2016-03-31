@@ -1,20 +1,20 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-
-var InboxListItem = React.createClass({
+var ReviewerForm = React.createClass({
   render: function() {
     var user = this.props.reportbackItem.user;
+    var reportbackInfo = this.props.reportbackItem.campaign.reportback_info;
+    var quantityLabel = reportbackInfo.noun + ' ' + reportbackInfo.verb;
+    var url = 'https://www.dosomething.org/reportback/' + this.props.reportbackItem.reportback.id + '?fid=' + this.props.reportbackItem.id;
+
     if (!user.photo) {
-//      user.photo = 'http://placecorgi.com/200/200';
       user.photo = 'https://raw.githubusercontent.com/DoSomething/LetsDoThis-iOS/develop/Lets%20Do%20This/Images.xcassets/Avatar.imageset/Avatar.png';
     }
     if (!user.first_name) {
       user.first_name = 'Doer';
     }
-    var reportbackInfo = this.props.reportbackItem.campaign.reportback_info;
-    var quantityLabel = reportbackInfo.noun + ' ' + reportbackInfo.verb;
-    var url = 'https://www.dosomething.org/reportback/' + this.props.reportbackItem.reportback.id + '?fid=' + this.props.reportbackItem.id;
+
     return (
       <div className="row">
         <div className="col-md-1 text-center">
@@ -56,65 +56,73 @@ var InboxListItem = React.createClass({
   }
 });
 
-var InboxListView = React.createClass({
+var Inbox = React.createClass({
   fetchData: function(campaignId) {
     fetch('https://www.dosomething.org/api/v1/reportback-items?load_user=true&campaigns=' + campaignId)
       .then((res) => {
-          return res.json();
-      }).then((json) => {
+        this.state.inboxLoaded = true;
+        return res.json();
+      })
+      .then((json) => {
+        if (json.data.length > 0) {
+          this.state.campaign = json.data[0].campaign;
+          this.state.reportbackItem = json.data[0];
+        }
         this.setState({
-          data: json.data,
-          campaign: json.data[0].campaign,
+          inbox: json.data,
+          inboxLoaded: this.state.inboxLoaded,
+          campaign: this.state.campaign,
+          reportbackItem: this.state.reportbackItem,
         });
+        console.log(this.state);
       })
   },
   getInitialState: function() {
     return {
-      data: [],
+      inbox: [],
+      inboxLoaded: false,
       campaign: {
         title: null,
         tagline: null,
-      }
+      },
+      reportbackItem: null,
     };
   },
   componentDidMount: function() {
-    // Hack for now. pathArray[2] is our campaign ID.
-    var pathArray = window.location.pathname.split('/');
-    console.log('id = ' + pathArray[2]);
-    this.fetchData(pathArray[2]);
+    this.fetchData(this.props.campaignId);
   },
   render: function() {
+    if (!this.state.inboxLoaded) {
+      return this.renderLoadingView('Loading...');
+    }
+    if (this.state.inbox.length == 0) {
+      return this.renderLoadingView('Inbox zero.');
+    }
+    var reportbackItem = this.state.inbox[0];
     return (
       <div>
         <div className="page-header">
           <h1>{this.state.campaign.title}</h1>
           <p>{this.state.campaign.tagline}</p>
         </div>
-        <InboxList data={this.state.data} />
-      </div>
-    );
-  }
-});
-
-var InboxList = React.createClass({
-  render: function() {
-    var reportbackItems = this.props.data.map(function(reportbackItem) {
-      return (
-        <InboxListItem 
+        <ReviewerForm 
           reportbackItem={reportbackItem}
           key={reportbackItem.id}
         />
-      );
-    });
-    return (
-      <div>
-        {reportbackItems[0]}
       </div>
     );
-  }
+  },
+  renderLoadingView: function(message) {
+    return (
+      <div>
+        <h4>{message}</h4>
+      </div>
+    );
+  },
 });
-
+// Hack for now. pathArray[2] is our campaign ID.
+var pathArray = window.location.pathname.split('/');
 ReactDOM.render(
-  <InboxListView />,
+  <Inbox campaignId={pathArray[2]} />,
   document.getElementById('content')
 );
