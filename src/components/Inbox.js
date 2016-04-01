@@ -1,7 +1,11 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var update = require('react-addons-update');
 
 var ReviewerForm = React.createClass({
+  onClickHandler: function() {
+    this.props.postReview();
+  },
   render: function() {
     var user = this.props.reportbackItem.user;
     var reportbackInfo = this.props.reportbackItem.campaign.reportback_info;
@@ -46,10 +50,10 @@ var ReviewerForm = React.createClass({
           </div>
         </div>
         <div className="col-md-3">
-          <button className="btn btn-primary btn-lg btn-block" type="submit">Approve</button>
-          <button className="btn btn-default btn-lg btn-block" type="submit">Promote</button>
-          <button className="btn btn-default btn-lg btn-block" type="submit">Exclude</button>
-          <button className="btn btn-default btn-lg btn-block" type="submit">Flag</button>
+          <button onClick={this.onClickHandler} className="btn btn-primary btn-lg btn-block" type="submit">Approve</button>
+          <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Promote</button>
+          <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Exclude</button>
+          <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Flag</button>
         </div>
       </div>
     );
@@ -57,8 +61,11 @@ var ReviewerForm = React.createClass({
 });
 
 var Inbox = React.createClass({
+  componentDidMount: function() {
+    this.fetchData();
+  },
   fetchData: function(campaignId) {
-    fetch('https://www.dosomething.org/api/v1/reportback-items?load_user=true&campaigns=' + campaignId)
+    fetch('https://www.dosomething.org/api/v1/reportback-items?load_user=true&campaigns=' + this.props.campaignId)
       .then((res) => {
         this.state.inboxLoaded = true;
         return res.json();
@@ -74,22 +81,20 @@ var Inbox = React.createClass({
           campaign: this.state.campaign,
           reportbackItem: this.state.reportbackItem,
         });
-        console.log(this.state);
       })
   },
   getInitialState: function() {
     return {
       inbox: [],
       inboxLoaded: false,
-      campaign: {
-        title: null,
-        tagline: null,
-      },
+      campaign: null,
       reportbackItem: null,
     };
   },
-  componentDidMount: function() {
-    this.fetchData(this.props.campaignId);
+  postReview: function() {
+    this.setState({
+      inbox : update(this.state.inbox, {$splice: [[0, 1]]})
+    });
   },
   render: function() {
     if (!this.state.inboxLoaded) {
@@ -106,8 +111,8 @@ var Inbox = React.createClass({
           <p>{this.state.campaign.tagline}</p>
         </div>
         <ReviewerForm 
+          postReview={this.postReview}
           reportbackItem={reportbackItem}
-          key={reportbackItem.id}
         />
       </div>
     );
@@ -120,6 +125,7 @@ var Inbox = React.createClass({
     );
   },
 });
+
 // Hack for now. pathArray[2] is our campaign ID.
 var pathArray = window.location.pathname.split('/');
 ReactDOM.render(
