@@ -50,6 +50,7 @@ function buildScript(file, watch) {
 gulp.task('default', function() {
   buildScript('CampaignList.js', true); 
   buildScript('Inbox.js', true);
+  buildScript('InboxReportbacks.js', true);
   return;
 });
 
