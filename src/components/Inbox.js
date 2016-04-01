@@ -109,12 +109,19 @@ var Inbox = React.createClass({
       return this.renderLoadingView('Loading...');
     }
     if (this.state.inbox.length == 0) {
-      return this.renderLoadingView('Inbox zero.');
+      return this.renderLoadingView('Empty inbox.');
     }
     var reportbackItem = this.state.inbox[0];
+    var count = this.state.inbox.length;
     return (
       <div>
         <div className="page-header">
+          <ul className="nav nav-pills pull-right">
+            <li role="presentation" className="active">
+              <a href="#">Inbox <span className="badge">{count}</span></a>
+            </li>
+            <li role="presentation"><a href="#">Gallery</a></li>
+          </ul>
           <h2>{this.state.campaign.title}</h2>
           <p>{this.state.campaign.tagline}</p>
         </div>
@@ -123,8 +130,7 @@ var Inbox = React.createClass({
             <CSSTransitionGroup
               transitionName="entry"
               component="div"
-              transitionLeaveTimeout={6000}
-              transitionEnterTimeout={6000}
+              transitionLeaveTimeout={3000}
               >
               <ReportbackItem
                 key={reportbackItem.id}
