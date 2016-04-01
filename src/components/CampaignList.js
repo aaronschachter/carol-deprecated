@@ -3,23 +3,26 @@ var ReactDOM = require('react-dom');
 
 
 var CampaignView = React.createClass({
+  handleClick: function(campaign) {
+    window.location = '/campaign/' + campaign.id;
+  },
   render: function() {
     return (
-      <div className="campaignView">
-        <h2 className="campaignTitle">
-          {this.props.title}
-        </h2>
-        <p>
-          <a href={this.props.url}>{this.props.tagline}</a>
-        </p>
-      </div>
+      <tr onClick={this.handleClick.bind(this, this.props.campaign)} >
+        <td>
+          <strong>{this.props.campaign.title}</strong>
+        </td>
+        <td>
+          {this.props.campaign.tagline}
+        </td>
+      </tr>
     );
   }
 });
 
 var CampaignListView = React.createClass({
   fetchData: function() {
-    fetch('https://www.dosomething.org/api/v1/campaigns')
+    fetch('https://www.dosomething.org/api/v1/campaigns?count=50')
       .then((res) => {
           return res.json();
       }).then((json) => {
@@ -36,10 +39,7 @@ var CampaignListView = React.createClass({
   },
   render: function() {
     return (
-      <div>
-        <h1>Campaigns</h1>
-        <CampaignList data={this.state.data} />
-      </div>
+      <CampaignList data={this.state.data} />
     );
   }
 });
@@ -47,20 +47,24 @@ var CampaignListView = React.createClass({
 var CampaignList = React.createClass({
   render: function() {
     var campaigns = this.props.data.map(function(campaign) {
-      var campaign_url = 'https://www.dosomething.org/node/' + campaign.id;
+      var campaign_url = '/campaign/' + campaign.id;
       return (
         <CampaignView 
-          title={campaign.title}
-          tagline={campaign.tagline}
-          url = {campaign_url}
+          campaign={campaign}
           key={campaign.id}
         />
       );
     });
     return (
-      <div>
+      <table className="table table-hover">
+        <tbody>
+        <tr>
+          <th>Title</th>
+          <th>Call to action</th>
+        </tr>
         {campaigns}
-      </div>
+        </tbody>
+      </table>
     );
   }
 });

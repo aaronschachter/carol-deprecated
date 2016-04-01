@@ -1,8 +1,40 @@
 body {
-  padding: 50px;
+  padding-top: 70px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+figcaption {
+  padding:10px 0;
+}
+img.avatar {
+  width: 75px;
+  height: 75px;
+}
+image.navbar-brand {
+  width: 60px;
+  height: 50px;
+}
+.table-hover td {
+  cursor: pointer;
+}
+
+
+/*ANIMATIONS*/
+
+.entry-enter {
+    transition: all 1s;
+    opacity: 0;
+}
+.entry-enter.entry-enter-active {
+    opacity: 1;
+}
+.entry-leave {
+    transition: all 1s;
+    opacity: 1;
+}
+.entry-leave.entry-leave-active {
+    opacity: 0;
 }

@@ -2,6 +2,27 @@ doctype html
 html
   head
     title= title
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    nav.navbar.navbar-default.navbar-fixed-top( role="navigation" )
+        .container
+            .navbar-header
+                a(href="/campaigns")
+                  img.navbar-brand(src="https://raw.githubusercontent.com/DoSomething/LetsDoThis-iOS/develop/Lets%20Do%20This/Images.xcassets/DS%20Logo.imageset/DS%20Logo.png")
+
+            #navbar-inverse.collapse.navbar-collapse
+                ul.nav.navbar-nav
+                    li.active: a( href="/campaigns") Campaigns
+                    li: a( href="#") Competitions
+                    li: a( href="#") Members
+                ul.nav.navbar-nav.navbar-right
+                    li.dropdown
+                        a.dropdown-toggle( href="#", data-toggle="dropdown", role="button", aria-expanded="false" ) example@dosomething.org
+                        ul.dropdown-menu( role="menu" )
+                            li: a( href="#" ) Logout
+
+    .container
+      block content
+      script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
+      script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
