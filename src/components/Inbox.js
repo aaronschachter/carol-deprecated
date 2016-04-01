@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var update = require('react-addons-update');
+var ReactAddonsUpdate = require('react-addons-update');
+var CSSTransitionGroup = require('react-addons-css-transition-group');
 
 var ReviewerForm = React.createClass({
   onClickHandler: function() {
@@ -93,7 +94,7 @@ var Inbox = React.createClass({
   },
   postReview: function() {
     this.setState({
-      inbox : update(this.state.inbox, {$splice: [[0, 1]]})
+      inbox : ReactAddonsUpdate(this.state.inbox, {$splice: [[0, 1]]})
     });
   },
   render: function() {
@@ -110,10 +111,18 @@ var Inbox = React.createClass({
           <h1>{this.state.campaign.title}</h1>
           <p>{this.state.campaign.tagline}</p>
         </div>
+        <CSSTransitionGroup
+        transitionName="entry"
+        component="div"
+        transitionLeaveTimeout={1000}
+        transitionEnterTimeout={1000}
+        >
         <ReviewerForm 
+          key={reportbackItem.id}
           postReview={this.postReview}
           reportbackItem={reportbackItem}
         />
+        </CSSTransitionGroup>
       </div>
     );
   },

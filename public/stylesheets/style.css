@@ -20,3 +20,21 @@ image.navbar-brand {
 .table-hover td {
   cursor: pointer;
 }
+
+
+/*ANIMATIONS*/
+
+.entry-enter {
+    transition: all 1s;
+    opacity: 0;
+}
+.entry-enter.entry-enter-active {
+    opacity: 1;
+}
+.entry-leave {
+    transition: all 1s;
+    opacity: 1;
+}
+.entry-leave.entry-leave-active {
+    opacity: 0;
+}
