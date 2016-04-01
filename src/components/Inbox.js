@@ -3,10 +3,7 @@ var ReactDOM = require('react-dom');
 var ReactAddonsUpdate = require('react-addons-update');
 var CSSTransitionGroup = require('react-addons-css-transition-group');
 
-var ReviewerForm = React.createClass({
-  onClickHandler: function() {
-    this.props.postReview();
-  },
+var ReportbackItem = React.createClass({
   render: function() {
     var user = this.props.reportbackItem.user;
     var reportbackInfo = this.props.reportbackItem.campaign.reportback_info;
@@ -22,7 +19,7 @@ var ReviewerForm = React.createClass({
 
     return (
       <div className="row">
-        <div className="col-md-1 text-center">
+        <div className="col-md-2 text-center">
           <figure>
             <a href={url}><img className="avatar img-circle" src={user.photo}/></a>
             <figcaption>
@@ -30,7 +27,7 @@ var ReviewerForm = React.createClass({
             </figcaption>
           </figure>
         </div>
-        <div className="col-md-5">
+        <div className="col-md-7">
           <div className="panel panel-default">
             <div className="panel-body">
               <a href={url}>
@@ -50,15 +47,25 @@ var ReviewerForm = React.createClass({
             <small>{quantityLabel}</small>
           </div>
         </div>
-        <div className="col-md-3">
-          <button onClick={this.onClickHandler} className="btn btn-primary btn-lg btn-block" type="submit">Approve</button>
-          <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Promote</button>
-          <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Exclude</button>
-          <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Flag</button>
-        </div>
       </div>
     );
   }
+});
+
+var Controls = React.createClass({
+  onClickHandler: function() {
+    this.props.postReview();
+  },
+  render: function() {
+    return (
+      <div>
+        <button onClick={this.onClickHandler} className="btn btn-primary btn-lg btn-block" type="submit">Approve</button>
+        <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Promote</button>
+        <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Exclude</button>
+        <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Flag</button>
+      </div>
+    );
+  },
 });
 
 var Inbox = React.createClass({
@@ -108,21 +115,30 @@ var Inbox = React.createClass({
     return (
       <div>
         <div className="page-header">
-          <h1>{this.state.campaign.title}</h1>
+          <h2>{this.state.campaign.title}</h2>
           <p>{this.state.campaign.tagline}</p>
         </div>
-        <CSSTransitionGroup
-        transitionName="entry"
-        component="div"
-        transitionLeaveTimeout={1000}
-        transitionEnterTimeout={1000}
-        >
-        <ReviewerForm 
-          key={reportbackItem.id}
-          postReview={this.postReview}
-          reportbackItem={reportbackItem}
-        />
-        </CSSTransitionGroup>
+        <div className="row">
+          <div className="col-md-9">
+            <CSSTransitionGroup
+              transitionName="entry"
+              component="div"
+              transitionLeaveTimeout={6000}
+              transitionEnterTimeout={6000}
+              >
+              <ReportbackItem
+                key={reportbackItem.id}
+                postReview={this.postReview}
+                reportbackItem={reportbackItem}
+              />
+            </CSSTransitionGroup>
+          </div>
+          <div className="col-md-3">
+            <Controls 
+              postReview={this.postReview}
+            />
+          </div>
+        </div>
       </div>
     );
   },
