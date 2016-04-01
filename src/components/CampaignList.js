@@ -15,6 +15,12 @@ var CampaignView = React.createClass({
         <td>
           {this.props.campaign.tagline}
         </td>
+        <td>
+          <small>{this.props.campaign.status.toUpperCase()}</small>
+        </td>
+        <td>
+          {Math.floor((Math.random() * 700))}
+        </td>
       </tr>
     );
   }
@@ -61,6 +67,8 @@ var CampaignList = React.createClass({
         <tr>
           <th>Title</th>
           <th>Call to action</th>
+          <th>Status</th>
+          <th>Inbox</th>
         </tr>
         {campaigns}
         </tbody>
