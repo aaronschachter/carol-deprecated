@@ -33,6 +33,7 @@ var Reportback = React.createClass({
               <small>{user.first_name.toUpperCase()}</small>
             </figcaption>
           </figure>
+          <small>Photos: {reportbackItems.length}</small>
         </div>
         <div className="col-md-7">
           {reportbackItems}
@@ -54,6 +55,18 @@ var ReportbackItem = React.createClass({
   render: function() {
     return (
       <div className="panel panel-default">
+        <div className="panel-heading">
+          <form>
+            <div className="checkbox text-right">
+              <label>
+                <input type="checkbox" id={this.props.reportbackItem.id} checked /> <small>Gallery&nbsp;&nbsp;</small>
+              </label>
+              <label>
+                <input type="checkbox" id={this.props.reportbackItem.id} /> <small>Promote</small>
+              </label>
+            </div>
+          </form>
+        </div>
         <div className="panel-body">
           <img className="img-responsive" src={this.props.reportbackItem.media.uri} />
         </div>
