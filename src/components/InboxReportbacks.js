@@ -65,7 +65,7 @@ var ReportbackItem = React.createClass({
   render: function() {
     return (
       <div className="panel panel-default">
-        <div className="panel-heading">
+        <div className="panel-heading gallery-controls">
           <form>
             <div className="checkbox text-right">
               <label>

@@ -20,6 +20,9 @@ image.navbar-brand {
 .table-hover td {
   cursor: pointer;
 }
+.gallery-controls {
+  padding: 1px 15px;
+}
 .caption {
   height: 80px;
 }
