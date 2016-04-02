@@ -20,6 +20,9 @@ image.navbar-brand {
 .table-hover td {
   cursor: pointer;
 }
+.caption {
+  height: 80px;
+}
 
 
 /*ANIMATIONS*/

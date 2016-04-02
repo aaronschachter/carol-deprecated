@@ -138,14 +138,17 @@ var Inbox = React.createClass({
     }
     var reportback = this.state.inbox[0];
     var count = this.state.inbox.length;
+    var galleryUrl = '/gallery/' + this.props.campaignId.toString();
     return (
       <div>
         <div className="page-header">
           <ul className="nav nav-pills pull-right">
             <li role="presentation" className="active">
-              <a href="#">Inbox <span className="badge">{count}</span></a>
+              <a href="{galleryUrl}">Inbox <span className="badge">{count}</span></a>
             </li>
-            <li role="presentation"><a href="#">Gallery</a></li>
+            <li role="presentation">
+              <a href={galleryUrl}>Gallery</a>
+            </li>
           </ul>
           <h2>{this.state.campaign.title}</h2>
           <p>{this.state.campaign.tagline}</p>
