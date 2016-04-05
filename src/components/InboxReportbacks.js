@@ -209,7 +209,7 @@ var Inbox = React.createClass({
             style={customStyles} >
             <div className="panel panel-default reasons-form">
               <div className="panel-heading">
-                <a href="#" className="pull-right" onClick={this.closeModal}>Cancel</a>
+                <a href="#" className="pull-right" onClick={this.closeModal}><small>Cancel</small></a>
                 <h3 className="panel-title">Promote</h3>
               </div>
               <div className="panel-body">
