@@ -6,6 +6,10 @@ body {
 a {
   color: #00B7FF;
 }
+.page-header {
+  margin: 0 0 20px 0;
+  border: 0;
+}
 figcaption {
   padding:10px 0;
 }
