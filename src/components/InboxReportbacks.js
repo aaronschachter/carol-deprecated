@@ -2,6 +2,20 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactAddonsUpdate = require('react-addons-update');
 var CSSTransitionGroup = require('react-addons-css-transition-group');
+var Modal = require('react-modal');
+var appElement = document.getElementById('content');
+const customStyles = {
+  content : {
+    top                   : '30%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    width: '300px',
+    padding: 0,
+  }
+};
 
 var Reportback = React.createClass({
   render: function() {
@@ -79,13 +93,16 @@ var Controls = React.createClass({
   onClickHandler: function() {
     this.props.postReview();
   },
+  showModal: function() {
+    this.props.openModal();
+  },
   render: function() {
     return (
       <div>
         <button onClick={this.onClickHandler} className="btn btn-primary btn-lg btn-block" type="submit">Approve</button>
-        <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Promote</button>
+        <button onClick={this.showModal} className="btn btn-default btn-lg btn-block" type="submit">Promote</button>
         <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Exclude</button>
-        <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Flag</button>
+        <button onClick={this.showModal} className="btn btn-default btn-lg btn-block" type="submit">Flag</button>
       </div>
     );
   },
@@ -121,12 +138,24 @@ var Inbox = React.createClass({
       inboxLoaded: false,
       campaign: null,
       reportbackItem: null,
+      modalIsOpen: false,
     };
+  },
+  openModal: function() {
+    this.setState({modalIsOpen: true});
+  },
+  closeModal: function() {
+    this.setState({modalIsOpen: false});
   },
   postReview: function() {
     this.setState({
+      modalIsOpen: this.state.modalIsOpen,
       inbox : ReactAddonsUpdate(this.state.inbox, {$splice: [[0, 1]]})
     });
+  },
+  postReason: function() {
+    this.state.modalIsOpen = false;
+    this.postReview();
   },
   render: function() {
     if (!this.state.inboxLoaded) {
@@ -169,9 +198,53 @@ var Inbox = React.createClass({
           <div className="col-md-3">
             <Controls 
               postReview={this.postReview}
+              openModal={this.openModal}
+              closeModal={this.closeModal}
             />
           </div>
         </div>
+        <Modal
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+            style={customStyles} >
+            <div className="panel panel-default reasons-form">
+              <div className="panel-heading">
+                <a href="#" className="pull-right" onClick={this.closeModal}>Cancel</a>
+                <h3 className="panel-title">Promote</h3>
+              </div>
+              <div className="panel-body">
+                <form>
+                  <div className="checkbox">
+                    <label>
+                      <input type="checkbox" /> Good photo
+                    </label>
+                  </div>
+                  <div className="checkbox">
+                    <label>
+                      <input type="checkbox" /> Good quote
+                    </label>
+                  </div>
+                  <div className="checkbox">
+                    <label>
+                      <input type="checkbox" /> Good for sponsor
+                    </label>
+                  </div>
+                  <div className="checkbox">
+                    <label>
+                      <input type="checkbox" /> High impact
+                    </label>
+                  </div>
+                  <button 
+                    type="submit" 
+                    className="btn btn-default btn-block"
+                    onClick={this.postReason}
+                  >
+                    Submit
+                  </button>
+                </form>
+              </div>
+            </div>
+          </Modal>
       </div>
     );
   },

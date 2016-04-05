@@ -33,6 +33,10 @@ image.navbar-brand {
 .list-group-item {
   border-color: white;
 }
+/* Overrides panel */
+.reasons-form {
+  margin-bottom: 0;
+}
 
 
 /*ANIMATIONS*/
