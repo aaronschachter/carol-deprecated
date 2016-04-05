@@ -34,16 +34,6 @@ var Reportback = React.createClass({
               <small><strong>{user.first_name.toUpperCase()}</strong></small>
             </figcaption>
           </figure>
-          <div className="panel panel-default">
-            <div className="panel-body">
-            <p>
-              <small>Photos: <strong>{reportbackItems.length}</strong></small>
-            </p>
-            <p>
-              <small>Updated: {date}</small>
-            </p>
-            </div>
-          </div>
         </div>
         <div className="col-md-7">
           {reportbackItems}
@@ -51,9 +41,16 @@ var Reportback = React.createClass({
         <div className="col-md-3">
           <div className="quantity text-center">
             <h3>
-            {this.props.reportback.quantity}
+              {this.props.reportback.quantity}
             </h3>
-            <small>{quantityLabel}</small>
+            <h4>
+              {quantityLabel}
+            </h4>
+            <div className="panel panel-default">
+              <div className="panel-body">
+                <small>1 / {reportbackItems.length} PHOTOS</small>
+              </div>
+            </div>
           </div>
         </div>
       </div>
