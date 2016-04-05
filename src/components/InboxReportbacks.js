@@ -39,19 +39,21 @@ var Reportback = React.createClass({
           {reportbackItems}
         </div>
         <div className="col-md-3">
-          <div className="quantity text-center">
-            <h3>
-              {this.props.reportback.quantity}
-            </h3>
-            <h4>
-              {quantityLabel}
-            </h4>
-            <div className="panel panel-default">
-              <div className="panel-body">
-                <small>1 / {reportbackItems.length} PHOTOS</small>
-              </div>
-            </div>
-          </div>
+          <ul className="list-group">
+            <li className="list-group-item text-center">
+              <h3>
+                {this.props.reportback.quantity}
+              </h3>
+              <h4>
+                {quantityLabel}
+              </h4>
+            </li>
+            <li className="list-group-item text-center">
+              <small>
+                1 / {reportbackItems.length} photos
+              </small>
+            </li>
+          </ul>
         </div>
       </div>
     );
@@ -62,18 +64,6 @@ var ReportbackItem = React.createClass({
   render: function() {
     return (
       <div className="panel panel-default">
-        <div className="panel-heading gallery-controls">
-          <form>
-            <div className="checkbox text-right">
-              <label>
-                <input type="checkbox" id={this.props.reportbackItem.id} checked /> <small>Gallery&nbsp;&nbsp;</small>
-              </label>
-              <label>
-                <input type="checkbox" id={this.props.reportbackItem.id} /> <small>Promote</small>
-              </label>
-            </div>
-          </form>
-        </div>
         <div className="panel-body">
           <img className="img-responsive" src={this.props.reportbackItem.media.uri} />
         </div>
@@ -92,7 +82,9 @@ var Controls = React.createClass({
   render: function() {
     return (
       <div>
-        <button onClick={this.onClickHandler} className="btn btn-primary btn-lg btn-block" type="submit">Validate</button>
+        <button onClick={this.onClickHandler} className="btn btn-primary btn-lg btn-block" type="submit">Approve</button>
+        <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Promote</button>
+        <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Exclude</button>
         <button onClick={this.onClickHandler} className="btn btn-default btn-lg btn-block" type="submit">Flag</button>
       </div>
     );
@@ -149,16 +141,16 @@ var Inbox = React.createClass({
     return (
       <div>
         <div className="page-header">
-          <ul className="nav nav-pills pull-right">
+          <h2>{this.state.campaign.title}</h2>
+          <h5>{this.state.campaign.tagline}</h5>
+          <ul className="nav nav-tabs">
             <li role="presentation" className="active">
-              <a href="{galleryUrl}">Inbox <span className="badge">{count}</span></a>
+              <a>Inbox</a>
             </li>
             <li role="presentation">
               <a href={galleryUrl}>Gallery</a>
             </li>
           </ul>
-          <h2>{this.state.campaign.title}</h2>
-          <p>{this.state.campaign.tagline}</p>
         </div>
         <div className="row">
           <div className="col-md-9">

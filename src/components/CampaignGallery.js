@@ -75,16 +75,16 @@ var Gallery = React.createClass({
     return (
       <div>
         <div className="page-header">
-          <ul className="nav nav-pills pull-right">
+          <h2>{this.state.campaign.title}</h2>
+          <h5>{this.state.campaign.tagline}</h5>
+          <ul className="nav nav-tabs">
             <li role="presentation">
               <a href={inboxUrl}>Inbox</a>
             </li>
             <li role="presentation" className="active">
-              <a href="#">Gallery</a>
+              <a>Gallery</a>
             </li>
           </ul>
-          <h2>{this.state.campaign.title}</h2>
-          <p>{this.state.campaign.tagline}</p>
         </div>
         <ul className="list-inline">
           {reportbackItems}

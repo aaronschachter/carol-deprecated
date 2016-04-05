@@ -26,6 +26,9 @@ image.navbar-brand {
 .caption {
   height: 80px;
 }
+.list-group-item {
+  border-color: white;
+}
 
 
 /*ANIMATIONS*/
