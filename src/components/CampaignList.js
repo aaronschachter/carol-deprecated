@@ -10,10 +10,16 @@ var CampaignView = React.createClass({
     return (
       <tr onClick={this.handleClick.bind(this, this.props.campaign)} >
         <td>
-          <strong>{this.props.campaign.title}</strong>
+          {this.props.campaign.title}
         </td>
         <td>
-          {this.props.campaign.tagline}
+          {Math.floor((Math.random() * 700))}
+        </td>
+        <td>
+          <small>{this.props.campaign.status.toUpperCase()}</small>
+        </td>
+        <td>
+          <small>{this.props.campaign.tagline}</small>
         </td>
       </tr>
     );
@@ -60,6 +66,8 @@ var CampaignList = React.createClass({
         <tbody>
         <tr>
           <th>Title</th>
+          <th>Inbox</th>
+          <th>Status</th>
           <th>Call to action</th>
         </tr>
         {campaigns}

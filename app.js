@@ -31,6 +31,10 @@ app.get('/campaign/:id', function(req, res, next) {
   res.render('inbox', { title: 'Inbox' });
 });
 
+app.get('/gallery/:id', function(req, res, next) {
+  res.render('gallery', { title: 'Gallery' });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

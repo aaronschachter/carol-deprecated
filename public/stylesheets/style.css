@@ -1,10 +1,14 @@
 body {
-  padding-top: 70px;
+  padding-top: 60px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+.page-header {
+  margin: 0 0 20px 0;
+  border: 0;
 }
 figcaption {
   padding:10px 0;
@@ -19,6 +23,19 @@ image.navbar-brand {
 }
 .table-hover td {
   cursor: pointer;
+}
+.gallery-controls {
+  padding: 1px 15px;
+}
+.caption {
+  height: 80px;
+}
+.list-group-item {
+  border-color: white;
+}
+/* Overrides panel */
+.reasons-form {
+  margin-bottom: 0;
 }
 
 
