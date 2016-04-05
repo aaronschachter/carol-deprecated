@@ -35,6 +35,10 @@ app.get('/gallery/:id', function(req, res, next) {
   res.render('gallery', { title: 'Gallery' });
 });
 
+app.get('/reportback/:id', function(req, res, next) {
+  res.render('reportback', { title: 'Reportback' });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

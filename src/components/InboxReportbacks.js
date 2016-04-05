@@ -31,6 +31,7 @@ var Reportback = React.createClass({
     var reportbackInfo = this.props.reportback.campaign.reportback_info;
     var quantityLabel = reportbackInfo.noun + ' ' + reportbackInfo.verb;
     var date = new Date(this.props.reportback.updated_at).toLocaleString('en-US', { hour12: true });
+    var url = '/reportback/' + this.props.reportback.id.toString();
 
     if (!user.photo) {
       user.photo = 'https://raw.githubusercontent.com/DoSomething/LetsDoThis-iOS/develop/Lets%20Do%20This/Images.xcassets/Avatar.imageset/Avatar.png';
@@ -63,9 +64,11 @@ var Reportback = React.createClass({
               </h4>
             </li>
             <li className="list-group-item text-center">
+              <a href={url}>
               <small>
                 1 / {reportbackItems.length} photos
               </small>
+              </a>
             </li>
           </ul>
         </div>
