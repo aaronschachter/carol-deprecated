@@ -188,7 +188,7 @@ var Inbox = React.createClass({
   },
   renderLoadingView: function(message) {
     return (
-      <div>
+      <div className="well">
         <h4>{message}</h4>
       </div>
     );
