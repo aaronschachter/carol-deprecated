@@ -24,21 +24,35 @@ app.get('/', function(req, res, next) {
 });
 
 app.get('/campaigns', function(req, res, next) {
-  res.render('campaigns', { title: 'Campaigns' });
+  res.render('campaigns', {
+    title: 'Campaigns',
+    membersClassName: null,
+    campaignsClassName: 'active',
+  });
 });
 
 app.get('/campaign/:id', function(req, res, next) {
-  res.render('inbox', { title: 'Inbox' });
+  res.render('inbox', {
+    title: 'Inbox',
+    membersClassName: null,
+    campaignsClassName: 'active',
+  });
 });
 
 app.get('/gallery/:id', function(req, res, next) {
-  res.render('gallery', { title: 'Gallery' });
+  res.render('gallery', {
+    title: 'Gallery',
+    membersClassName: null,
+    campaignsClassName: 'active',
+  });
 });
 
 app.get('/reportback/:id', function(req, res, next) {
   res.render('reportback', {
     title: 'Reportback',
     fid: req.query.fid,
+    membersClassName: 'active',
+    campaignsClassName: null,
   });
 });
 
