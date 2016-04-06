@@ -20,14 +20,7 @@ const customStyles = {
 var Reportback = React.createClass({
   render: function() {
     var user = this.props.reportback.user;
-    var reportbackItems = this.props.reportback.reportback_items.data.map(function(reportbackItem) {
-      return (
-        <ReportbackItem 
-          reportbackItem={reportbackItem} 
-          key={reportbackItem.id} 
-        />
-      );
-    });
+    var reportbackItems = this.props.reportback.reportback_items.data;
     var reportbackInfo = this.props.reportback.campaign.reportback_info;
     var quantityLabel = reportbackInfo.noun + ' ' + reportbackInfo.verb;
     var date = new Date(this.props.reportback.updated_at).toLocaleString('en-US', { hour12: true });
@@ -51,7 +44,10 @@ var Reportback = React.createClass({
           </figure>
         </div>
         <div className="col-md-7">
-          {reportbackItems}
+          <ReportbackItem 
+            reportbackItem={reportbackItems[0]} 
+            key={reportbackItems[0].id} 
+          />
         </div>
         <div className="col-md-3">
           <ul className="list-group inbox-impact">
