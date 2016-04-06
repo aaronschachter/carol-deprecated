@@ -20,17 +20,11 @@ const customStyles = {
 var Reportback = React.createClass({
   render: function() {
     var user = this.props.reportback.user;
-    var reportbackItems = this.props.reportback.reportback_items.data.map(function(reportbackItem) {
-      return (
-        <ReportbackItem 
-          reportbackItem={reportbackItem} 
-          key={reportbackItem.id} 
-        />
-      );
-    });
+    var reportbackItems = this.props.reportback.reportback_items.data;
     var reportbackInfo = this.props.reportback.campaign.reportback_info;
     var quantityLabel = reportbackInfo.noun + ' ' + reportbackInfo.verb;
     var date = new Date(this.props.reportback.updated_at).toLocaleString('en-US', { hour12: true });
+    var url = '/reportback/' + this.props.reportback.id.toString();
 
     if (!user.photo) {
       user.photo = 'https://raw.githubusercontent.com/DoSomething/LetsDoThis-iOS/develop/Lets%20Do%20This/Images.xcassets/Avatar.imageset/Avatar.png';
@@ -50,10 +44,13 @@ var Reportback = React.createClass({
           </figure>
         </div>
         <div className="col-md-7">
-          {reportbackItems}
+          <ReportbackItem 
+            reportbackItem={reportbackItems[0]} 
+            key={reportbackItems[0].id} 
+          />
         </div>
         <div className="col-md-3">
-          <ul className="list-group">
+          <ul className="list-group inbox-impact">
             <li className="list-group-item text-center">
               <h3>
                 {this.props.reportback.quantity}
@@ -63,9 +60,11 @@ var Reportback = React.createClass({
               </h4>
             </li>
             <li className="list-group-item text-center">
+              <a href={url}>
               <small>
                 1 / {reportbackItems.length} photos
               </small>
+              </a>
             </li>
           </ul>
         </div>

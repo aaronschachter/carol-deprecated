@@ -13,9 +13,9 @@ html
 
             #navbar-inverse.collapse.navbar-collapse
                 ul.nav.navbar-nav
-                    li.active: a( href="/campaigns") Campaigns
+                    li(class=campaignsClassName): a( href="/campaigns") Campaigns
                     li: a( href="#") Competitions
-                    li: a( href="#") Members
+                    li(class=membersClassName): a( href="#") Members
                 ul.nav.navbar-nav.navbar-right
                     li.dropdown
                         a.dropdown-toggle( href="#", data-toggle="dropdown", role="button", aria-expanded="false" ) example@dosomething.org

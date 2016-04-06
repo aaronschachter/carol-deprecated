@@ -30,7 +30,7 @@ image.navbar-brand {
 .caption {
   height: 80px;
 }
-.list-group-item {
+.inbox-impact .list-group-item {
   border-color: white;
 }
 /* Overrides panel */
@@ -38,6 +38,28 @@ image.navbar-brand {
   margin-bottom: 0;
 }
 
+.carousel-caption {
+  position: relative;
+  left: auto;
+  right: auto;
+  color: #333;
+  text-shadow: none;
+  margin:20px 0;
+}
+
+.carousel-control.left, .carousel-control.right {
+  background-image: none;
+  background-color: #ccc;
+}
+.item-status {
+  font-weight: bold;
+}
+.profile.page-header {
+  margin: 10px 0;
+}
+.profile .avatar {
+  margin-right: 20px;
+}
 
 /*ANIMATIONS*/
 

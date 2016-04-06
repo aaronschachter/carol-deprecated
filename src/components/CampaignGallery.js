@@ -3,21 +3,23 @@ var ReactDOM = require('react-dom');
 
 var ReportbackItem = React.createClass({
   render: function() {
+    var url = '/reportback/' + this.props.reportbackItem.reportback.id.toString();
     return (
       <li>
-        <div className="panel panel-default">
-          <div className="panel-body">
-            <img className="img-responsive" src={this.props.reportbackItem.media.uri} />
+        <a href={url}>
+          <div className="panel panel-default">
+            <div className="panel-body">
+              <img className="img-responsive" src={this.props.reportbackItem.media.uri} />
+            </div>
+            <div className="panel-footer caption">
+              {this.props.reportbackItem.caption.substring(0,60)}
+            </div>
           </div>
-          <div className="panel-footer caption">
-            {this.props.reportbackItem.caption.substring(0,60)}
-          </div>
-        </div>
+        </a>
       </li>
     );
   }
 });
-
 
 var Gallery = React.createClass({
   componentDidMount: function() {
