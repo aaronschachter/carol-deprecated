@@ -24,35 +24,39 @@ app.get('/', function(req, res, next) {
 });
 
 app.get('/campaigns', function(req, res, next) {
-  res.render('campaigns', {
+  res.render('layout', {
     title: 'Campaigns',
     membersClassName: null,
     campaignsClassName: 'active',
+    contentSrc: '/dist/CampaignList.js',
   });
 });
 
 app.get('/campaign/:id', function(req, res, next) {
-  res.render('inbox', {
+  res.render('layout', {
     title: 'Inbox',
     membersClassName: null,
     campaignsClassName: 'active',
+    contentSrc: '/dist/Inbox.js',
   });
 });
 
 app.get('/gallery/:id', function(req, res, next) {
-  res.render('gallery', {
+  res.render('layout', {
     title: 'Gallery',
     membersClassName: null,
     campaignsClassName: 'active',
+    contentSrc: '/dist/CampaignGallery.js',
   });
 });
 
 app.get('/reportback/:id', function(req, res, next) {
-  res.render('reportback', {
+  res.render('layout', {
     title: 'Reportback',
     fid: req.query.fid,
     membersClassName: 'active',
     campaignsClassName: null,
+    contentSrc: '/dist/Reportback.js',
   });
 });
 
