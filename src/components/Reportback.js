@@ -103,7 +103,11 @@ var Reportback = React.createClass({
     var reportbackItem = this.state.reportback.reportback_items.data[this.state.selectedItemIndex];
     var campaignTitle = this.state.reportback.campaign.title;
     var campaignLink = '/campaign/' + this.state.reportback.campaign.id.toString();
-    var countryName = null;
+    var countryName = null, 
+      userName = 'Doer';
+    if (this.state.reportback.user.first_name) {
+      userName = this.state.reportback.user.first_name;
+    }
     if (this.state.reportback.user.country) {
       countryName = this.state.reportback.user.country.toUpperCase();
     }
@@ -112,7 +116,7 @@ var Reportback = React.createClass({
       <div>
         <div className="page-header">
           <h1 className="pull-right">{this.state.reportback.quantity} <small>{suffix}</small></h1>
-          <h2>{this.state.reportback.user.first_name} <small><a href={campaignLink}>{campaignTitle}</a></small></h2>
+          <h2>{userName} <small><a href={campaignLink}>{campaignTitle}</a></small></h2>
           <h5>{countryName}</h5>
         </div>
         <div className="row">
