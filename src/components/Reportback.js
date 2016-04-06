@@ -40,7 +40,7 @@ var ReportbackItemSummary = React.createClass({
     return (
       <ul className="list-group">
         <li className="list-group-item">
-          <a href={url} target="_blank">ID: {this.props.reportbackItem.id}</a>
+          <a href={url} target="_blank">{this.props.reportbackItem.id}</a>
         </li>
         <li className="list-group-item">
            Submitted {createdAt}
