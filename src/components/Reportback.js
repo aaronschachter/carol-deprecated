@@ -118,7 +118,7 @@ var Reportback = React.createClass({
     }
     return (
       <div>
-        <div className="page-header profile">
+        <div className="page-header profile clearfix">
           <img className="avatar img-circle pull-left" src={userAvatar} />      
           <h1 className="pull-right">{this.state.reportback.quantity} <small>{suffix}</small></h1>
           <h2>{userName.toUpperCase()} <small><a href={campaignLink}>{campaignTitle}</a></small></h2>
