@@ -54,6 +54,9 @@ image.navbar-brand {
 .item-status {
   font-weight: bold;
 }
+.profile .avatar {
+  margin-right: 20px;
+}
 
 /*ANIMATIONS*/
 

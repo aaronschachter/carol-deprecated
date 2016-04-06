@@ -104,19 +104,24 @@ var Reportback = React.createClass({
     var campaignTitle = this.state.reportback.campaign.title;
     var campaignLink = '/campaign/' + this.state.reportback.campaign.id.toString();
     var countryName = null, 
-      userName = 'Doer';
-    if (this.state.reportback.user.first_name) {
-      userName = this.state.reportback.user.first_name;
+      userName = 'Doer',
+      user = this.state.reportback.user,
+      userAvatar = 'https://raw.githubusercontent.com/DoSomething/LetsDoThis-iOS/develop/Lets%20Do%20This/Images.xcassets/Avatar.imageset/Avatar.png';
+    if (user.first_name) {
+      userName = user.first_name;
     }
-    if (this.state.reportback.user.country) {
-      countryName = this.state.reportback.user.country.toUpperCase();
+    if (user.country) {
+      countryName = user.country.toUpperCase();
     }
-
+    if (user.photo) {
+      userAvatar = user.photo;
+    }
     return (
       <div>
-        <div className="page-header">
+        <div className="page-header profile">
+          <img className="avatar img-circle pull-left" src={userAvatar} />      
           <h1 className="pull-right">{this.state.reportback.quantity} <small>{suffix}</small></h1>
-          <h2>{userName} <small><a href={campaignLink}>{campaignTitle}</a></small></h2>
+          <h2>{userName.toUpperCase()} <small><a href={campaignLink}>{campaignTitle}</a></small></h2>
           <h5>{countryName}</h5>
         </div>
         <div className="row">
