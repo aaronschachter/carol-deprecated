@@ -35,6 +35,7 @@ var ReportbackItemSummary = React.createClass({
     return time;
   },
   render: function() {
+    var currentIndex = this.props.reportbackItemIndex + 1;
     var createdAt = this.timeConverter(this.props.reportbackItem.created_at);
     var url = 'https://www.dosomething.org/reportback/' + this.props.reportback.id + '?fid=' + this.props.reportbackItem.id;
     return (
@@ -44,12 +45,13 @@ var ReportbackItemSummary = React.createClass({
         </li>
         <li className="list-group-item">
            Submitted {createdAt}
+           <span className="pull-right"><small>{currentIndex} / {this.props.reportback.reportback_items.data.length} photos</small></span>
         </li>
         <li className="list-group-item">
           <strong>
             {this.props.reportbackItem.status.toUpperCase()}
           </strong>
-          <a href="#" className="pull-right">Edit</a>
+          <a href="#" className="pull-right"><small>Edit</small></a>
         </li>
       </ul>
     );
@@ -99,12 +101,19 @@ var Reportback = React.createClass({
     }
     var suffix = this.state.reportback.campaign.reportback_info.noun + ' ' + this.state.reportback.campaign.reportback_info.verb;
     var reportbackItem = this.state.reportback.reportback_items.data[this.state.selectedItemIndex];
+    var campaignTitle = this.state.reportback.campaign.title;
+    var campaignLink = '/campaign/' + this.state.reportback.campaign.id.toString();
+    var countryName = null;
+    if (this.state.reportback.user.country) {
+      countryName = this.state.reportback.user.country.toUpperCase();
+    }
+
     return (
       <div>
         <div className="page-header">
           <h1 className="pull-right">{this.state.reportback.quantity} <small>{suffix}</small></h1>
-          <h2>{this.state.reportback.user.first_name} <small>{this.state.reportback.campaign.title}</small></h2>
-          <h5>{this.state.reportback.user.country.toUpperCase()}</h5>
+          <h2>{this.state.reportback.user.first_name} <small><a href={campaignLink}>{campaignTitle}</a></small></h2>
+          <h5>{countryName}</h5>
         </div>
         <div className="row">
           <div className="col-md-8">
@@ -118,7 +127,8 @@ var Reportback = React.createClass({
           <div className="col-md-4">
             <ReportbackItemSummary
               reportback={this.state.reportback}
-              reportbackItem={reportbackItem} 
+              reportbackItem={reportbackItem}
+              reportbackItemIndex={this.state.selectedItemIndex}
             />
           </div>
         </div>
