@@ -30,7 +30,7 @@ image.navbar-brand {
 .caption {
   height: 80px;
 }
-.list-group-item {
+.inbox-impact .list-group-item {
   border-color: white;
 }
 /* Overrides panel */

@@ -54,7 +54,7 @@ var Reportback = React.createClass({
           {reportbackItems}
         </div>
         <div className="col-md-3">
-          <ul className="list-group">
+          <ul className="list-group inbox-impact">
             <li className="list-group-item text-center">
               <h3>
                 {this.props.reportback.quantity}

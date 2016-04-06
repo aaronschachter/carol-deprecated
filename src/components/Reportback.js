@@ -46,9 +46,10 @@ var ReportbackItemSummary = React.createClass({
            Submitted {createdAt}
         </li>
         <li className="list-group-item">
-          <p className="item-status">
+          <strong>
             {this.props.reportbackItem.status.toUpperCase()}
-          </p>
+          </strong>
+          <a href="#" className="pull-right">Edit</a>
         </li>
       </ul>
     );
