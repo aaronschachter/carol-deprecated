@@ -28,19 +28,22 @@ var ReportbackItemSummary = React.createClass({
     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     var year = a.getFullYear();
     var month = months[a.getMonth()];
-    var date = a.getDate();
-    var time = month + ' ' + date + ', ' + year;
+    var day = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes(); 
+    var time = month + ' ' + day + ', ' + year + ' ' + hour + ':' + min;
     return time;
   },
   render: function() {
     var createdAt = this.timeConverter(this.props.reportbackItem.created_at);
+    var url = 'https://www.dosomething.org/reportback/' + this.props.reportback.id + '?fid=' + this.props.reportbackItem.id;
     return (
       <ul className="list-group">
         <li className="list-group-item">
-          ID: {this.props.reportbackItem.id}
+          <a href={url} target="_blank">ID: {this.props.reportbackItem.id}</a>
         </li>
         <li className="list-group-item">
-           {createdAt}
+           Submitted {createdAt}
         </li>
         <li className="list-group-item">
           <p className="item-status">
@@ -69,13 +72,21 @@ var Reportback = React.createClass({
     // @todo Check for item id to set selectedItemIndex.
     return {
       reportback: [],
-      reportbackItem: null,
+      selectedItemIndex: 0,
       loaded: false,
     };
   },
-  setReportbackItem: function(reportbackItem) {
+  bumpIndex: function(increment) {
+    var newIndex = this.state.selectedItemIndex + increment;
+    var totalItems = this.state.reportback.reportback_items.data.length;
+    if (newIndex == totalItems) {
+      newIndex = 0;
+    }
+    else if (newIndex < 0) {
+      newIndex = totalItems - 1;
+    }
     this.setState({
-      reportbackItem: reportbackItem,
+      selectedItemIndex: newIndex,
     });
   },
   componentDidMount: function() {
@@ -86,6 +97,7 @@ var Reportback = React.createClass({
       return (<div>Loading</div>);
     }
     var suffix = this.state.reportback.campaign.reportback_info.noun + ' ' + this.state.reportback.campaign.reportback_info.verb;
+    var reportbackItem = this.state.reportback.reportback_items.data[this.state.selectedItemIndex];
     return (
       <div>
         <div className="page-header">
@@ -98,12 +110,14 @@ var Reportback = React.createClass({
             <Carousel
               key={this.state.reportback.id}
               data={this.state.reportback.reportback_items.data}
-              setReportbackItem={this.setReportbackItem}
+              reportbackItem={reportbackItem}
+              bumpIndex={this.bumpIndex}
             />
           </div>
           <div className="col-md-4">
             <ReportbackItemSummary
-              reportbackItem={this.state.reportback.reportback_items.data[0]} 
+              reportback={this.state.reportback}
+              reportbackItem={reportbackItem} 
             />
           </div>
         </div>
@@ -113,6 +127,9 @@ var Reportback = React.createClass({
 });
 
 var Carousel = React.createClass({
+  handleClick: function(increment) {
+    this.props.bumpIndex(increment);
+  },
   render: function() {
     var items = this.props.data.map(function(reportbackItem, itemIndex) {
       return (
@@ -128,11 +145,11 @@ var Carousel = React.createClass({
         <div className="carousel-inner" role="listbox">
           {items}
         </div>
-        <a className="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <a onClick={this.handleClick.bind(this, -1)} className="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
           <span className="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
           <span className="sr-only">Previous</span>
         </a>
-        <a className="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <a onClick={this.handleClick.bind(this, 1)} className="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
           <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
           <span className="sr-only">Next</span>
         </a>
