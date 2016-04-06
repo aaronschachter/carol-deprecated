@@ -22,6 +22,36 @@ var ReportbackItem = React.createClass({
   }
 });
 
+var ReportbackItemSummary = React.createClass({
+  timeConverter: function(timestamp){
+    var a = new Date(timestamp * 1000);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var time = month + ' ' + date + ', ' + year;
+    return time;
+  },
+  render: function() {
+    var createdAt = this.timeConverter(this.props.reportbackItem.created_at);
+    return (
+      <ul className="list-group">
+        <li className="list-group-item">
+          ID: {this.props.reportbackItem.id}
+        </li>
+        <li className="list-group-item">
+           {createdAt}
+        </li>
+        <li className="list-group-item">
+          <p className="item-status">
+            {this.props.reportbackItem.status.toUpperCase()}
+          </p>
+        </li>
+      </ul>
+    );
+  }
+});
+
 var Reportback = React.createClass({
   fetchData: function() {
     var url = 'https://www.dosomething.org/api/v1/reportbacks/' + this.props.reportbackId;
@@ -36,10 +66,17 @@ var Reportback = React.createClass({
       })
   },
   getInitialState: function() {
+    // @todo Check for item id to set selectedItemIndex.
     return {
       reportback: [],
+      reportbackItem: null,
       loaded: false,
     };
+  },
+  setReportbackItem: function(reportbackItem) {
+    this.setState({
+      reportbackItem: reportbackItem,
+    });
   },
   componentDidMount: function() {
     this.fetchData();
@@ -48,14 +85,28 @@ var Reportback = React.createClass({
     if (!this.state.loaded) {
       return (<div>Loading</div>);
     }
+    var suffix = this.state.reportback.campaign.reportback_info.noun + ' ' + this.state.reportback.campaign.reportback_info.verb;
     return (
       <div>
         <div className="page-header">
+          <h1 className="pull-right">{this.state.reportback.quantity} <small>{suffix}</small></h1>
           <h2>{this.state.reportback.user.first_name} <small>{this.state.reportback.campaign.title}</small></h2>
           <h5>{this.state.reportback.user.country.toUpperCase()}</h5>
         </div>
-        
-        <Carousel data={this.state.reportback.reportback_items.data} />
+        <div className="row">
+          <div className="col-md-8">
+            <Carousel
+              key={this.state.reportback.id}
+              data={this.state.reportback.reportback_items.data}
+              setReportbackItem={this.setReportbackItem}
+            />
+          </div>
+          <div className="col-md-4">
+            <ReportbackItemSummary
+              reportbackItem={this.state.reportback.reportback_items.data[0]} 
+            />
+          </div>
+        </div>
       </div>
     );
   }
@@ -73,12 +124,7 @@ var Carousel = React.createClass({
       );
     });
     return (
-      <div id="carousel-example-generic" className="carousel slide" data-ride="carousel">
-        <ol className="carousel-indicators">
-          <li data-target="#carousel-example-generic" data-slide-to="0" className="active"></li>
-          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
+      <div id="carousel-example-generic" className="carousel slide" data-ride="carousel" data-interval="false">
         <div className="carousel-inner" role="listbox">
           {items}
         </div>
