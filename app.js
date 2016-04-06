@@ -36,7 +36,10 @@ app.get('/gallery/:id', function(req, res, next) {
 });
 
 app.get('/reportback/:id', function(req, res, next) {
-  res.render('reportback', { title: 'Reportback' });
+  res.render('reportback', {
+    title: 'Reportback',
+    fid: req.query.fid,
+  });
 });
 
 // catch 404 and forward to error handler
