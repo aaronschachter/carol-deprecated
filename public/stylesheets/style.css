@@ -21,9 +21,6 @@ image.navbar-brand {
   width: 60px;
   height: 50px;
 }
-.table-hover td {
-  cursor: pointer;
-}
 .gallery-controls {
   padding: 1px 15px;
 }
