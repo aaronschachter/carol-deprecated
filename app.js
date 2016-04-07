@@ -60,6 +60,15 @@ app.get('/reportback/:id', function(req, res, next) {
   });
 });
 
+app.get('/user/:id', function(req, res, next) {
+  res.render('layout', {
+    title: 'Profile',
+    membersClassName: 'active',
+    campaignsClassName: null,
+    contentSrc: '/dist/Profile.js',
+  });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

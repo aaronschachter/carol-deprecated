@@ -1,7 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-
 var ReportbackItem = React.createClass({
   render: function() {
     var itemClassName = 'item';
@@ -107,21 +106,24 @@ var Reportback = React.createClass({
       userName = 'Doer',
       user = this.state.reportback.user,
       userAvatar = 'https://raw.githubusercontent.com/DoSomething/LetsDoThis-iOS/develop/Lets%20Do%20This/Images.xcassets/Avatar.imageset/Avatar.png';
+    var profileUrl = '/user/' + user.id;
+
     if (user.first_name) {
       userName = user.first_name;
     }
     if (user.country) {
       countryName = user.country.toUpperCase();
     }
-    if (user.photo) {
-      userAvatar = user.photo;
+    if (!user.photo) {
+      user.photo = userAvatar;
     }
+    localStorage['user_'+user.id] = JSON.stringify(user);
     return (
       <div>
         <div className="page-header profile clearfix">
           <img className="avatar img-circle pull-left" src={userAvatar} />      
           <h1 className="pull-right">{this.state.reportback.quantity} <small>{suffix}</small></h1>
-          <h2>{userName.toUpperCase()} <small><a href={campaignLink}>{campaignTitle}</a></small></h2>
+          <h2><a href={profileUrl}>{userName.toUpperCase()}</a> <small><a href={campaignLink}>{campaignTitle}</a></small></h2>
           <h5>{countryName}</h5>
         </div>
         <div className="row">
@@ -177,7 +179,6 @@ var Carousel = React.createClass({
     );
   }
 });
-
 
 var pathArray = window.location.pathname.split('/');
 ReactDOM.render(

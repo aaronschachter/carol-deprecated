@@ -52,6 +52,7 @@ gulp.task('default', function() {
   buildScript('Inbox.js', true);
   buildScript('CampaignGallery.js', true);
   buildScript('Reportback.js', true);
+  buildScript('Profile.js', true);
   return;
 });
 

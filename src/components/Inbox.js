@@ -25,7 +25,7 @@ var Reportback = React.createClass({
     var quantityLabel = reportbackInfo.noun + ' ' + reportbackInfo.verb;
     var date = new Date(this.props.reportback.updated_at).toLocaleString('en-US', { hour12: true });
     var url = '/reportback/' + this.props.reportback.id.toString();
-
+    var profileUrl = '/user/' + user.id;
     if (!user.photo) {
       user.photo = 'https://raw.githubusercontent.com/DoSomething/LetsDoThis-iOS/develop/Lets%20Do%20This/Images.xcassets/Avatar.imageset/Avatar.png';
     }
@@ -36,12 +36,14 @@ var Reportback = React.createClass({
     return (
       <div className="row">
         <div className="col-md-2">
-          <figure className="text-center">
-            <img className="avatar img-circle" src={user.photo}/>
-            <figcaption>
-              <small><strong>{user.first_name.toUpperCase()}</strong></small>
-            </figcaption>
-          </figure>
+          <a href={profileUrl}>
+            <figure className="text-center">
+              <img className="avatar img-circle" src={user.photo}/>
+              <figcaption>
+                <small><strong>{user.first_name.toUpperCase()}</strong></small>
+              </figcaption>
+            </figure>
+          </a>
         </div>
         <div className="col-md-7">
           <ReportbackItem 
